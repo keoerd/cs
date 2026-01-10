@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Main from '@/pages/main/Main.vue'
-import Greeting from '@/pages/greeting/Greeting.vue'
+import Greeting from '@/pages/company/Greeting.vue'
+import Certification from '@/pages/company/Certification.vue'
 import MediaCenter from '@/pages/mediaCenter/MediaCenter.vue'
 import Notice from '@/pages/notice/Notice.vue'
 
@@ -13,19 +14,14 @@ const router = createRouter({
       component: Main,
     },
     {
-      path: '/greeting',
-      name: 'greeting',
+      path: '/company/greeting',
+      name: 'companyy-greeting',
       component: Greeting,
     },
     {
-      path: '/mediaCenter',
-      name: 'mediaCenter',
-      component: MediaCenter,
-    },
-    {
-      path: '/notice',
-      name: 'notice',
-      component: Notice,
+      path: '/company/certification',
+      name: 'companyy-certification',
+      component: Certification,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
