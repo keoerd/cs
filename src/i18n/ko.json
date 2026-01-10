@@ -1,0 +1,19 @@
+{
+  "header": {
+    "menu": {
+      "aboutUs": "엽합회 소개",
+      "mediaCenter": "미디어 센터",
+      "notices": "공지사항"
+    }
+  },
+  "main": {
+    "mainBanner": {
+      "text1": "유럽한인경제인단체총연합 박람회"
+    },
+    "introduction": {
+      "text1": "유럽 한인경제인단체 총연합회 (the Federation of Korea Business Association of Europe)는 유럽지역에 진출한 한국 기업들의 권익 보호와 경제 협력 증진을 목적으로 하는 단체입니다.!"
+    },
+    "purpose": {},
+    "activities": {}
+  }
+}
