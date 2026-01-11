@@ -87,7 +87,7 @@ const menuItems = [
 <style scoped>
 /* CSS 스타일은 이전과 대부분 동일하지만, router-link 대응을 위해 일부 수정 */
 .header { background-color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; height: 70px; display: flex; justify-content: space-between; align-items: center; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 20px; height: 70px; display: flex; justify-content: space-between; align-items: center; }
 .logo a { font-size: 1.5rem; font-weight: bold; color: #0056b3; text-decoration: none; }
 
 .nav-menu > ul { display: flex; list-style: none; gap: 40px; margin: 0; padding: 0; }
