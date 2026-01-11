@@ -27,7 +27,6 @@ const menuItems = [
   },
   { name: '제품소개', link: '/products' },
   { name: '설치사례', link: '/products' }, // 예시
-  // { name: '고객센터', link: '/products' }, // 예시
 ];
 </script>
 
