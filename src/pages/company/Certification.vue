@@ -80,16 +80,15 @@ const certifications = [
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 .content-section {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
-  padding-top: 3rem;
+
 }
 
 .content-section.fade-in {
@@ -105,7 +104,6 @@ const certifications = [
 
 .image-frame-full {
   width: 100%;
-  border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }

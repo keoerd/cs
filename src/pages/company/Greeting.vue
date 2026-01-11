@@ -84,7 +84,6 @@ onMounted(() => {
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
 }
 
 /* 상단 타이틀 바 */

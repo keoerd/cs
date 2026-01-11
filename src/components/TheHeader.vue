@@ -25,8 +25,8 @@ const menuItems = [
       { name: '인증서', link: '/company/certification' },
     ]
   },
-  { name: '제품소개', link: '/products' },
-  { name: '설치사례', link: '/products' }, // 예시
+  { name: '제품소개', link: '/product' },
+  { name: '설치사례', link: '/installation-case' }, // 예시
 ];
 </script>
 

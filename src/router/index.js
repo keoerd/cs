@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Main from '@/pages/main/Main.vue'
 import Greeting from '@/pages/company/Greeting.vue'
 import Certification from '@/pages/company/Certification.vue'
-import MediaCenter from '@/pages/mediaCenter/MediaCenter.vue'
-import Notice from '@/pages/notice/Notice.vue'
+import Product from '@/pages/product/Product.vue'
+import InstallationCase from '@/pages/installationCase/InstallationCase.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +23,17 @@ const router = createRouter({
       name: 'companyy-certification',
       component: Certification,
     },
+    {
+      path: '/product',
+      name: 'product',
+      component: Product,
+    },
+    {
+      path: '/installation-case',
+      name: 'installation-case',
+      component: InstallationCase,
+    },
+
   ],
   scrollBehavior(to, from, savedPosition) {
     // 1. 이동하려는 경로에 해시(#)가 있는 경우

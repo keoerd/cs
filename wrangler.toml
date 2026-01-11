@@ -1,4 +1,0 @@
-# wrangler.toml
-name = "cs"  # Cloudflare 대시보드에 있는 프로젝트 이름
-pages_build_output_dir = "./dist" # Vue 빌드 결과물 폴더
-compatibility_date = "2026-01-11"
