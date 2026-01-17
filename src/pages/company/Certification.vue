@@ -10,15 +10,32 @@ onMounted(() => {
   }, 100);
 });
 
-// 인증서 데이터 (실제 이미지 파일명으로 교체 필요)
+// 인증서 데이터
 const certifications = [
-  { id: 1, name: '특허증', desc: '코인 샤워기 제어 시스템', image: 'https://via.placeholder.com/300x400?text=Patent+1' },
-  { id: 2, name: '실용신안등록증', desc: '절수형 샤워 헤드', image: 'https://via.placeholder.com/300x400?text=Patent+2' },
+  { id: 1, name: '목차1', desc: '특허 등록 List', image: '/images/company/certification/list1.jpg' },
+  { id: 2, name: '목차2', desc: '특허 등록 List', image: '/images/company/certification/list2.jpg' },
   { id: 3, name: '디자인등록증', desc: '산업용 폴 베이스', image: 'https://via.placeholder.com/300x400?text=Design+1' },
   { id: 4, name: 'ISO 9001', desc: '품질경영시스템 인증', image: 'https://via.placeholder.com/300x400?text=ISO+9001' },
   { id: 5, name: '여성기업확인서', desc: '중소벤처기업부', image: 'https://via.placeholder.com/300x400?text=Women+Biz' },
   { id: 6, name: '상표등록증', desc: 'CS 브랜드 상표', image: 'https://via.placeholder.com/300x400?text=Brand' },
 ];
+
+/* --- [추가] 모달(이미지 확대) 관련 로직 --- */
+const selectedCert = ref(null); // 현재 선택된 인증서 데이터
+
+// 모달 열기
+const openModal = (item) => {
+  selectedCert.value = item;
+  // 모달 열릴 때 백그라운드 스크롤 방지
+  document.body.style.overflow = 'hidden';
+};
+
+// 모달 닫기
+const closeModal = () => {
+  selectedCert.value = null;
+  // 스크롤 방지 해제
+  document.body.style.overflow = '';
+};
 </script>
 
 <template>
@@ -53,7 +70,7 @@ const certifications = [
 
         <div class="cert-grid">
           <div v-for="item in certifications" :key="item.id" class="cert-item">
-            <div class="cert-image-box">
+            <div class="cert-image-box" @click="openModal(item)">
               <img :src="item.image" :alt="item.name" />
               <div class="hover-overlay">
                 <span>확대보기 +</span>
@@ -68,11 +85,25 @@ const certifications = [
 
       </div>
     </section>
+
+    <Transition name="fade">
+      <div v-if="selectedCert" class="modal-backdrop" @click.self="closeModal">
+        <div class="modal-content">
+          <button class="close-btn" @click="closeModal">&times;</button>
+          <img :src="selectedCert.image" :alt="selectedCert.name" />
+          <div class="modal-caption">
+            <h3>{{ selectedCert.name }}</h3>
+            <p>{{ selectedCert.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </Transition>
+
   </div>
 </template>
 
 <style scoped>
-/* --- 공통 레이아웃 (Greeting 페이지와 통일) --- */
+/* --- 공통 레이아웃 (기존과 동일) --- */
 .certification-view {
   width: 100%;
   padding-bottom: 8rem;
@@ -88,7 +119,6 @@ const certifications = [
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
-
 }
 
 .content-section.fade-in {
@@ -96,7 +126,6 @@ const certifications = [
   transform: translateY(0);
 }
 
-/* 상단 이미지 영역 */
 .visual-full-area {
   width: 100%;
   margin-bottom: 3rem;
@@ -114,14 +143,12 @@ const certifications = [
   display: block;
 }
 
-/* 컨텐츠 래퍼 */
 .content-wrapper {
-  max-width: 100%; /* 그리드 형식이므로 폭을 넓게 사용 */
+  max-width: 100%;
   margin: 0 auto;
   text-align: center;
 }
 
-/* 슬로건 & 헤드라인 스타일 */
 .slogan-bar {
   font-size: 0.95rem;
   color: #666;
@@ -162,7 +189,7 @@ const certifications = [
 /* --- 인증서 그리드 스타일 --- */
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* PC: 3열 */
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   text-align: left;
 }
@@ -182,7 +209,7 @@ const certifications = [
 
 .cert-image-box {
   width: 100%;
-  height: 320px; /* 세로형 상장 비율 */
+  height: 320px;
   background-color: #f9f9f9;
   position: relative;
   border-bottom: 1px solid #eee;
@@ -190,17 +217,17 @@ const certifications = [
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer; /* 클릭 가능 표시 */
 }
 
 .cert-image-box img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 이미지 비율 유지 */
+  object-fit: contain;
   padding: 20px;
   transition: transform 0.3s;
 }
 
-/* 호버 오버레이 */
 .hover-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -210,7 +237,6 @@ const certifications = [
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s;
-  cursor: pointer;
 }
 .hover-overlay span {
   color: #fff; font-weight: bold; border: 1px solid #fff; padding: 8px 16px; border-radius: 20px;
@@ -234,23 +260,89 @@ const certifications = [
   color: #888;
 }
 
+/* --- [추가] 모달(팝업) 스타일 --- */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* 짙은 반투명 검정 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 최상단 노출 */
+  padding: 20px;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 900px;
+  max-height: 90%;
+  background-color: transparent;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 80vh; /* 화면 높이의 80%까지만 */
+  object-fit: contain;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+  background-color: #fff; /* 투명 이미지일 경우를 대비해 흰 배경 */
+}
+
+.modal-caption {
+  margin-top: 15px;
+  color: #fff;
+}
+.modal-caption h3 { font-size: 1.2rem; margin-bottom: 5px; }
+.modal-caption p { font-size: 0.9rem; color: #ccc; }
+
+.close-btn {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s;
+}
+.close-btn:hover { color: #e74c3c; }
+
+/* 모달 등장 애니메이션 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+
 /* --- 모바일 반응형 --- */
 @media (max-width: 768px) {
   .headline { font-size: 1.6rem; margin-bottom: 1.5rem; }
   .mobile-break { display: block; }
-
   .slogan-bar { flex-direction: column; gap: 5px; font-size: 0.85rem; }
   .slogan-bar .divider { display: none; }
-
-  /* 모바일: 2열 그리드 */
+  
   .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
   .cert-image-box { height: 220px; }
   .cert-info { padding: 15px 10px; }
   .cert-info h3 { font-size: 1rem; }
+  
+  /* 모바일에서 모달 닫기 버튼 위치 조정 */
+  .close-btn { top: -35px; right: 0; font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
-  /* 화면이 아주 작으면 1열로 변경 */
   .cert-grid { grid-template-columns: 1fr; }
 }
 </style>

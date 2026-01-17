@@ -2,14 +2,10 @@
 import { reactive } from 'vue';
 
 const products = reactive([
-  { id: 1, title: '코인 샤워기', desc: '동전을 사용하여 작동하는 경제적인 샤워기', image: 'images/main/1.png' },
-  { id: 2, title: '카드/코인 겸용', desc: '신용카드와 동전 모두 사용 가능한 하이브리드', image: 'images/main/1.png' },
-  { id: 3, title: '일체형 샤워부스', desc: '설치가 간편한 올인원 샤워 부스 시스템', image: 'images/main/1.png' },
-  { id: 4, title: '산업용 폴 베이스', desc: '상하좌우 조절이 가능한 고강도 덮개', image: 'images/main/1.png' },
-  { id: 5, title: '이동식 간이 화장실', desc: '야외 행사 및 공사 현장에 적합한 이동식 모델', image: 'images/main/1.png' },
-  { id: 6, title: '절수형 타이머', desc: '물 사용량을 획기적으로 줄여주는 제어 장치', image: 'images/main/1.png' },
-  { id: 7, title: '대용량 온수기', desc: '많은 인원이 사용해도 거뜬한 고효율 온수기', image: 'images/main/1.png' },
-  { id: 8, title: '샤워장 관리 시스템', desc: 'PC와 모바일로 매출 및 상태를 관리하는 IoT', image: 'images/main/1.png' },
+  { id: 1, title: '폴 샤워기(Large)', desc: '야외 설치에 적합한 자립형 4인용 폴 샤워기입니다.', image: 'images/main/main-product1.jpg' },
+  { id: 2, title: '코인샤워기 슬림형 (Coin Type)', desc: '기본형으로 ₩500동전 사용', image: 'images/main/main-product2.jpg' },
+  { id: 3, title: '코인샤워기 슬림형 (Card & Coin Type)', desc: '₩500동전 + 카드 결제', image: 'images/main/main-product3.jpg' },
+  { id: 4, title: '코인샤워기 일체형 (Card Type)', desc: '제품 + 샤워헤드 포함', image: 'images/main/main-product4.jpg' },
 ]);
 </script>
 
