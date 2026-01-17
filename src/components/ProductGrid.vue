@@ -21,7 +21,6 @@ const products = reactive([
           <div class="card-content">
             <h3>{{ product.title }}</h3>
             <p>{{ product.desc }}</p>
-            <a href="#" class="more-link">상세보기 &rarr;</a>
           </div>
         </article>
       </div>
@@ -112,7 +111,6 @@ h2 {
 .card-content p {
   color: #666;
   font-size: 0.95rem;
-  margin-bottom: 20px;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 2;
