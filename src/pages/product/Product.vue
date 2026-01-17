@@ -17,7 +17,7 @@ const products = [
     specs: [
       { label: '규격', value: '230x95x900H' },
       { label: '소재', value: 'STS304 1.2t / 정전분체도장' },
-      { label: '전기', value: 'AC 220V / 60Hz / 32W' },
+      { label: '전기', value: '1Ø AC 220V / 60Hz / 32W' },
     ]
   },
   {
@@ -30,7 +30,7 @@ const products = [
     specs: [
       { label: '규격', value: '210x90x590H' },
       { label: '소재', value: 'STS304 1.2t+정전분체도장' },
-      { label: '전기', value: 'AC 220V / 60Hz / 32W' },
+      { label: '전기', value: '1Ø AC 220V / 60Hz / 32W' },
     ]
   },
   {
@@ -43,7 +43,7 @@ const products = [
     specs: [
       { label: '규격', value: '250x100x900H' },
       { label: '소재', value: 'STS304 1.2t+정전분체도장' },
-      { label: '전기', value: 'AC 220V / 60Hz / 62W' },
+      { label: '전기', value: '1Ø AC 220V / 60Hz / 62W' },
     ]
   },
   {
