@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 
 // 1. 카테고리 정의
-const categories = ['ALL', '코인/카드 샤워기', '일체형 샤워부스', '산업용 폴베이스', '기타 부품'];
+const categories = ['ALL', '코인/카드 샤워기', '폴타입 샤워기'];
 const activeCategory = ref('ALL');
 
 // 2. 제품 데이터 (이미지 경로 유지)
@@ -10,99 +10,66 @@ const products = [
   {
     id: 1,
     category: '코인/카드 샤워기',
-    name: 'CS-500 (코인 전용)',
-    image: 'images/product/1.jpg',
-    summary: '동전 투입 시 즉시 작동하는 기본형 모델',
-    description: '가장 보편적으로 사용되는 코인 샤워기입니다. 500원 주화 전용이며, 남은 시간이 표시되어 사용자가 편리하게 이용할 수 있습니다.',
+    name: '코인샤워기 슬림형 (Coin Type)',
+    image: 'images/product/코인샤워기 슬림형 (Card Type).jpg',
+    summary: '코인샤워기 Basic Type',
+    description: '코인샤워기 Basic Type으로 ₩500동전으로만 결제 가능한 제품입니다.',
     specs: [
-      { label: '규격', value: '180 x 250 x 120 (mm)' },
-      { label: '전원', value: 'AC 220V / 60Hz' },
-      { label: '재질', value: 'ABS 난연성 플라스틱' },
+      { label: '규격', value: '230x95x900H' },
+      { label: '소재', value: 'STS304 1.2t / 정전분체도장' },
+      { label: '전기', value: 'AC 220V / 60Hz / 32W' },
     ]
   },
   {
     id: 2,
     category: '코인/카드 샤워기',
-    name: 'CS-700 (카드/코인 겸용)',
-    image: 'images/product/2.jpg',
-    summary: '신용카드와 동전 모두 사용 가능한 하이브리드',
-    description: 'RF카드 시스템과 코인기를 결합한 최신 모델입니다. 삼성페이 등 간편결제 기능을 지원하여 젊은 층의 이용이 많은 곳에 적합합니다.',
+    name: '코인샤워기 슬림형 (Card & Coin Type)',
+    image: 'images/product/코인샤워기 슬림형 (Coin Type).jpg',
+    summary: 'RF카드 시스템과 코인을 결합한 모델',
+    description: 'RF카드 시스템과 코인을 결합한 모델입니다. 삼성페이, 신용카드, ₩500동전 등 간편결제 기능을 지원하여 편리한 결제가 가능합니다.',
     specs: [
-      { label: '규격', value: '200 x 300 x 130 (mm)' },
-      { label: '결제방식', value: 'IC/MS 카드, 동전' },
-      { label: '특징', value: '방수 등급 IPX4' },
+      { label: '규격', value: '210x90x590H' },
+      { label: '소재', value: 'STS304 1.2t+정전분체도장' },
+      { label: '전기', value: 'AC 220V / 60Hz / 32W' },
     ]
   },
   {
     id: 3,
-    category: '일체형 샤워부스',
-    name: 'SB-100 (1인용 부스)',
-    image: 'images/product/3.jpg',
-    summary: '설치가 간편하고 공간 활용이 뛰어난 이동식 부스',
-    description: '현장에 바로 설치 가능한 올인원 샤워 부스입니다. 강화유리를 사용하여 안전하며, 배수 및 급수 연결만으로 즉시 사용 가능합니다.',
+    category: '코인/카드 샤워기',
+    name: '코인샤워기 일체형 (Card Type)',
+    image: 'images/product/코인샤워기 일체형 (Card Type).jpg',
+    summary: '제품 + 샤워헤드 포함 일체형 모델',
+    description: '코인샤워기 자체에 샤워헤드가 포함된 제품입니다. RF카드 시스템과 코인을 결합한 모델입니다. 삼성페이, 신용카드, ₩500동전 등 간편결제 기능을 지원하여 편리한 결제가 가능합니다.',
     specs: [
-      { label: '사이즈', value: '1000 x 900 x 2100 (mm)' },
-      { label: '재질', value: 'SMC, 강화유리' },
+      { label: '규격', value: '250x100x900H' },
+      { label: '소재', value: 'STS304 1.2t+정전분체도장' },
+      { label: '전기', value: 'AC 220V / 60Hz / 62W' },
     ]
   },
   {
     id: 4,
-    category: '산업용 폴베이스',
-    name: 'PB-Standard',
-    image: 'images/product/4.jpg',
-    summary: '가로등 및 신호등 지지대 커버',
-    description: '도시 미관을 해치지 않는 깔끔한 디자인의 폴 베이스입니다. 충격에 강하고 유지보수가 간편한 구조로 설계되었습니다.',
+    category: '폴타입 샤워기',
+    name: '폴 샤워기(Standard)',
+    image: 'images/product/2인용폴.jpg',
+    summary: '야외 설치에 적합한 자립형 폴 2인용 샤워기',
+    description: '야외 설치에 적합한 자립형 폴 2인용 샤워기입니다. 해수욕장·야영장 등 외부 환경에 적합합니다.',
     specs: [
-      { label: '적용규격', value: 'Ø200 ~ Ø300' },
-      { label: '재질', value: '고강도 합성수지' },
+      { label: '규격', value: '190x190x2420H' },
+      { label: '소재', value: 'STS304 2.0t+정전분체도장' },
+      { label: '전기', value: '1Ø AC 220V / 60Hz / 64W' },
     ]
   },
   {
     id: 5,
-    category: '기타 부품',
-    name: '솔레노이드 밸브',
-    image: 'images/product/5.jpg',
-    summary: '정확한 유수 제어를 위한 핵심 부품',
-    description: '코인 샤워기의 물 공급과 차단을 제어하는 전자 밸브입니다. 내구성이 뛰어나 고장이 적습니다.',
+    category: '폴타입 샤워기',
+    name: '폴 샤워기(Large)',
+    image: 'images/product/4인용폴.jpg',
+    summary: '야외 설치에 적합한 자립형 폴 4인용 샤워기',
+    description: '야외 설치에 적합한 자립형 폴 4인용 샤워기입니다. 해수욕장·야영장 등 외부 환경에 적합합니다.',
     specs: [
-      { label: '전압', value: 'DC 12V / 24V' },
-      { label: '압력', value: '0.02 ~ 0.8 Mpa' },
-    ]
-  },
-  {
-    id: 6,
-    category: '기타 부품',
-    name: '솔레노이드 밸브',
-    image: 'images/product/6.jpg',
-    summary: '정확한 유수 제어를 위한 핵심 부품',
-    description: '코인 샤워기의 물 공급과 차단을 제어하는 전자 밸브입니다. 내구성이 뛰어나 고장이 적습니다.',
-    specs: [
-      { label: '전압', value: 'DC 12V / 24V' },
-      { label: '압력', value: '0.02 ~ 0.8 Mpa' },
-    ]
-  },
-  {
-    id: 7,
-    category: '기타 부품',
-    name: '솔레노이드 밸브',
-    image: 'images/product/7.jpg',
-    summary: '정확한 유수 제어를 위한 핵심 부품',
-    description: '코인 샤워기의 물 공급과 차단을 제어하는 전자 밸브입니다. 내구성이 뛰어나 고장이 적습니다.',
-    specs: [
-      { label: '전압', value: 'DC 12V / 24V' },
-      { label: '압력', value: '0.02 ~ 0.8 Mpa' },
-    ]
-  },
-  {
-    id: 8,
-    category: '기타 부품',
-    name: '솔레노이드 밸브',
-    image: 'images/product/8.jpg',
-    summary: '정확한 유수 제어를 위한 핵심 부품',
-    description: '코인 샤워기의 물 공급과 차단을 제어하는 전자 밸브입니다. 내구성이 뛰어나 고장이 적습니다.',
-    specs: [
-      { label: '전압', value: 'DC 12V / 24V' },
-      { label: '압력', value: '0.02 ~ 0.8 Mpa' },
+      { label: '규격', value: '250x250x2980H' },
+      { label: '소재', value: 'STS304 2.5t+정전분체도장' },
+      { label: '전기', value: '1Ø AC 220V / 60Hz / 128W' },
     ]
   },
 ];
@@ -205,10 +172,6 @@ const closeModal = () => {
                     </tr>
                   </tbody>
                 </table>
-              </div>
-
-              <div class="action-box">
-                <a href="/customer/inquiry" class="inquiry-btn">견적 문의하기</a>
               </div>
             </div>
           </div>

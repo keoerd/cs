@@ -7,7 +7,7 @@ import { ref, computed } from 'vue';
 const activeMainTab = ref('cases');
 
 // --- [탭 1: 설치사례 데이터 및 로직] ---
-const categories = ['ALL', '캠핑장/펜션', '기숙사/고시원', '헬스장/사우나', '공공시설/기타'];
+const categories = ['ALL', '덕트 사용', '줄샤워기', '폴샤워기'];
 const activeCategory = ref('ALL');
 
 const installCases = [
@@ -130,15 +130,15 @@ const statusData = [
     <section class="container content-section">
 
       <div class="main-tabs">
-        <button 
-          class="tab-btn" 
+        <button
+          class="tab-btn"
           :class="{ active: activeMainTab === 'cases' }"
           @click="activeMainTab = 'cases'"
         >
           설치사례
         </button>
-        <button 
-          class="tab-btn" 
+        <button
+          class="tab-btn"
           :class="{ active: activeMainTab === 'status' }"
           @click="activeMainTab = 'status'"
         >
@@ -147,7 +147,7 @@ const statusData = [
       </div>
 
       <div v-show="activeMainTab === 'cases'" class="tab-content fade-in">
-        
+
         <div class="category-nav">
           <button
             v-for="cat in categories"
@@ -511,7 +511,7 @@ const statusData = [
 
 @media (max-width: 768px) {
   .case-grid { grid-template-columns: 1fr; }
-  
+
   /* 모바일에서 설치현황 카드 스타일 변경 */
   .status-card { flex-direction: column; gap: 15px; padding: 20px; }
   .status-number-box { flex-direction: row; align-items: center; gap: 10px; width: 100%; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 5px; }

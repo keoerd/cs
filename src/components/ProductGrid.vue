@@ -12,7 +12,15 @@ const products = reactive([
 <template>
   <section class="products-section">
     <div class="container">
-      <h2>주요 제품 소개</h2>
+
+      <div class="section-header">
+        <h2>주요 제품 소개</h2>
+
+        <a href="/pdf/CS.pdf" download class="pdf-download-btn">
+          <span class="icon">📥</span> 카탈로그 다운로드 (PDF)
+        </a>
+      </div>
+
       <div class="grid">
         <article v-for="product in products" :key="product.id" class="card">
           <div class="card-image">
@@ -34,27 +42,59 @@ const products = reactive([
   background-color: #fff;
 }
 
-/* 컨테이너 너비 */
 .container {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-h2 {
-  text-align: center;
+/* [추가] 섹션 헤더 스타일 (제목 + 버튼) */
+.section-header {
+  position: relative; /* 버튼의 절대 위치 기준점 */
+  text-align: center; /* 제목 중앙 정렬 */
   margin-bottom: 3rem;
+  padding: 0 10px;
+}
+
+h2 {
   font-size: 2rem;
   color: #333;
   font-weight: 700;
+  margin: 0; /* 마진은 부모인 section-header에서 제어 */
+  display: inline-block; /* 중앙 정렬을 위해 */
 }
 
-/* [핵심 수정] 그리드 레이아웃 설정 */
+/* [추가] PDF 다운로드 버튼 스타일 */
+.pdf-download-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%); /* 수직 중앙 정렬 */
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.pdf-download-btn:hover {
+  background-color: #0056b3; /* 호버 시 파란색 */
+  transform: translateY(-50%) scale(1.02);
+}
+
+.icon {
+  font-size: 1.1em;
+}
+
+/* 그리드 레이아웃 설정 */
 .grid {
   display: grid;
-  /* repeat(4, 1fr):
-     화면 크기와 상관없이 무조건 가로를 4등분(1fr x 4)합니다.
-     데이터가 8개이므로 정확히 4개씩 2줄이 생성됩니다.
-  */
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
@@ -73,7 +113,6 @@ h2 {
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* 이미지 비율 가로2 : 세로3 설정 */
 .card-image {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -119,35 +158,33 @@ h2 {
   min-height: 46px;
 }
 
-.more-link {
-  display: inline-block;
-  color: #0056b3;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background 0.3s;
-}
-
-.more-link:hover {
-  background-color: #f0f8ff;
-}
-
 /* 반응형 처리 */
-/* 태블릿 이하 (1024px)에서는 4개가 너무 좁을 수 있으므로 3개나 2개로 조정하는 것이 좋지만,
-   일단 '모바일' 전까지는 4개를 유지하고 싶다면 아래 미디어 쿼리만 두시면 됩니다. */
-
 @media (max-width: 1024px) {
-  /* 화면이 좀 작아지면(태블릿) 4개는 너무 좁으니 3개 혹은 2개로 변경 */
-  /* 필요 없다면 이 부분 지우셔도 됩니다. */
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  /* 모바일에서는 2열로 유지 (너무 좁으면 1열로 변경: repeat(1, 1fr)) */
+  /* 모바일에서 헤더 레이아웃 변경 */
+  .section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  /* 모바일에서는 절대 위치 해제하고 제목 아래로 배치 */
+  .pdf-download-btn {
+    position: static;
+    transform: none;
+    width: auto;
+  }
+
+  .pdf-download-btn:hover {
+    transform: scale(1.02);
+  }
+
   .grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
