@@ -80,6 +80,7 @@ const filteredProducts = computed(() => {
   return products.filter(p => p.category === activeCategory.value);
 });
 
+
 // 4. 모달(상세보기) 관련 로직
 const selectedProduct = ref(null);
 const isModalOpen = ref(false);
