@@ -13,7 +13,7 @@ const activeCategory = ref('ALL');
 const installCases = [
   {
     id: 1,
-    category: '캠핑장/펜션',
+    category: '덕트 사용',
     title: '가평 OO 캠핑장 샤워실',
     date: '2025.10.15',
     location: '경기도 가평군',
