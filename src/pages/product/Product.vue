@@ -52,7 +52,7 @@ const products = [
     name: '폴 샤워기(Standard)',
     image: 'images/product/2인용폴.jpg',
     summary: '야외 설치에 적합한 자립형 폴 2인용 샤워기',
-    description: '야외 설치에 적합한 자립형 폴 2인용 샤워기입니다. 해수욕장·야영장 등 외부 환경에 적합합니다.',
+    description: '야외 설치에 적합한 자립형 폴 2인용 샤워기입니다. 해수욕장·야영장 등 외부 환경에 적합합니다.1',
     specs: [
       { label: '규격', value: '190x190x2420H' },
       { label: '소재', value: 'STS304 2.0t+정전분체도장' },
@@ -73,7 +73,7 @@ const products = [
     ]
   },
 ];
-
+ 
 // 3. 필터링 로직
 const filteredProducts = computed(() => {
   if (activeCategory.value === 'ALL') return products;
