@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, computed } from 'vue';
 
 // 페이지 타이틀
 const pageTitle = "산업재산권";
@@ -7,45 +7,83 @@ const pageTitle = "산업재산권";
 // 페이지 로드 시 페이드인 효과
 const isVisible = ref(false);
 
-onMounted(() => {
-  setTimeout(() => {
-    isVisible.value = true;
-  }, 100);
-});
-
-// 인증서 데이터 (이미지 경로만 정확하면 됩니다)
+// 인증서 데이터
 const certifications = [
-  { id: 1, name: '', image: '/images/company/certification/1.png' },
-  { id: 2, name: '', image: '/images/company/certification/2.jpg' },
-  { id: 3, name: '', image: '/images/company/certification/3.jpg' },
-  { id: 4, name: '', image: '/images/company/certification/4.jpg' },
-  { id: 5, name: '', image: '/images/company/certification/5.jpg' },
-  { id: 6, name: '', image: '/images/company/certification/6.jpg' },
-  { id: 7, name: '', image: '/images/company/certification/7.jpg' },
-  { id: 8, name: '', image: '/images/company/certification/8.jpg' },
-  { id: 9, name: '', image: '/images/company/certification/9.jpg' },
-  { id: 10, name: '', image: '/images/company/certification/10.png' },
-  { id: 11, name: '', image: '/images/company/certification/11.png' },
-  { id: 12, name: '', image: '/images/company/certification/12.png' },
-  { id: 13, name: '', image: '/images/company/certification/13.png' },
-  { id: 14, name: '', image: '/images/company/certification/14.png' },
+  { id: 1, name: '특허증', image: '/images/company/certification/1.png' },
+  { id: 2, name: '실용신안등록증', image: '/images/company/certification/2.jpg' },
+  { id: 3, name: '디자인등록증', image: '/images/company/certification/3.jpg' },
+  { id: 4, name: 'ISO 9001', image: '/images/company/certification/4.jpg' },
+  { id: 5, name: '여성기업확인서', image: '/images/company/certification/5.jpg' },
+  { id: 6, name: '상표등록증', image: '/images/company/certification/6.jpg' },
+  { id: 7, name: '상표등록증', image: '/images/company/certification/7.jpg' },
+  { id: 8, name: '상표등록증', image: '/images/company/certification/8.jpg' },
+  { id: 9, name: '상표등록증', image: '/images/company/certification/9.jpg' },
+  { id: 10, name: '상표등록증', image: '/images/company/certification/10.png' },
+  { id: 11, name: '상표등록증', image: '/images/company/certification/11.png' },
+  { id: 12, name: '상표등록증', image: '/images/company/certification/12.png' },
+  { id: 13, name: '상표등록증', image: '/images/company/certification/13.png' },
+  { id: 14, name: '상표등록증', image: '/images/company/certification/14.png' },
 ];
 
-// --- 모달 관련 로직 ---
-const selectedCert = ref(null);
+// --- 모달 및 네비게이션 로직 ---
 const isModalOpen = ref(false);
+const currentIndex = ref(0); // 현재 선택된 이미지의 인덱스
 
-const openModal = (item) => {
-  selectedCert.value = item;
+// 현재 인덱스에 해당하는 데이터 계산
+const selectedCert = computed(() => {
+  if (!isModalOpen.value) return null;
+  return certifications[currentIndex.value];
+});
+
+// 모달 열기 (인덱스로 받음)
+const openModal = (index) => {
+  currentIndex.value = index;
   isModalOpen.value = true;
-  document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+  document.body.style.overflow = 'hidden';
 };
 
+// 모달 닫기
 const closeModal = () => {
   isModalOpen.value = false;
-  setTimeout(() => { selectedCert.value = null; }, 300); // 애니메이션 후 데이터 비움
-  document.body.style.overflow = ''; // 스크롤 방지 해제
+  document.body.style.overflow = '';
 };
+
+// 이전 이미지 보기
+const prevImage = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  } else {
+    currentIndex.value = certifications.length - 1; // 처음이면 마지막으로 루프
+  }
+};
+
+// 다음 이미지 보기
+const nextImage = () => {
+  if (currentIndex.value < certifications.length - 1) {
+    currentIndex.value++;
+  } else {
+    currentIndex.value = 0; // 마지막이면 처음으로 루프
+  }
+};
+
+// 키보드 이벤트 핸들러
+const handleKeydown = (e) => {
+  if (!isModalOpen.value) return; // 모달이 닫혀있으면 동작 안함
+
+  if (e.key === 'ArrowLeft') prevImage();
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'Escape') closeModal();
+};
+
+// 라이프사이클 훅: 키보드 이벤트 리스너 등록/해제
+onMounted(() => {
+  setTimeout(() => { isVisible.value = true; }, 100);
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
 </script>
 
 <template>
@@ -87,10 +125,10 @@ const closeModal = () => {
 
         <div class="cert-grid">
           <div
-            v-for="item in certifications"
+            v-for="(item, index) in certifications"
             :key="item.id"
             class="cert-item image-only"
-            @click="openModal(item)"
+            @click="openModal(index)"
           >
             <div class="cert-image-box">
               <img :src="item.image" :alt="item.name" />
@@ -107,8 +145,17 @@ const closeModal = () => {
     <Transition name="modal">
       <div v-if="isModalOpen" class="modal-overlay" @click.self="closeModal">
         <div class="modal-content-simple">
+
           <button class="close-btn" @click="closeModal">&times;</button>
+
+          <button class="nav-btn prev" @click.stop="prevImage">
+            &#10094; </button>
+
           <img v-if="selectedCert" :src="selectedCert.image" :alt="selectedCert.name" class="modal-image" />
+
+          <button class="nav-btn next" @click.stop="nextImage">
+            &#10095; </button>
+
         </div>
       </div>
     </Transition>
@@ -142,10 +189,10 @@ const closeModal = () => {
 .decorative-line { width: 60px; height: 3px; background-color: #0056b3; margin: 0 auto 40px auto; }
 .intro-text { margin-bottom: 60px; color: #666; font-size: 1.1rem; }
 
-/* --- [수정] 인증서 그리드 스타일 (이미지 전용) --- */
+/* --- 인증서 그리드 스타일 (기존 동일) --- */
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* PC 3열 */
+  grid-template-columns: repeat(3, 1fr);
   gap: 30px;
 }
 
@@ -155,8 +202,7 @@ const closeModal = () => {
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
-  cursor: pointer; /* 클릭 가능 표시 */
-  /* 하단 텍스트 영역이 없으므로 패딩 불필요 */
+  cursor: pointer;
 }
 
 .cert-item.image-only:hover {
@@ -166,7 +212,6 @@ const closeModal = () => {
 
 .cert-image-box {
   width: 100%;
-  /* 세로로 긴 상장 비율에 맞춤 (필요시 조정: ex. aspect-ratio: 3 / 4;) */
   height: 400px;
   background-color: #f9f9f9;
   position: relative;
@@ -179,15 +224,14 @@ const closeModal = () => {
 .cert-image-box img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 이미지 비율 유지하며 안에 맞춤 */
-  padding: 20px; /* 테두리와 간격 */
+  object-fit: contain;
+  padding: 20px;
   transition: transform 0.4s;
 }
 
-/* 호버 오버레이 스타일 */
 .hover-overlay {
   position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 86, 179, 0.6); /* 반투명 파란 배경 */
+  background: rgba(0, 86, 179, 0.6);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; transition: opacity 0.3s;
 }
@@ -195,17 +239,14 @@ const closeModal = () => {
   color: #fff; border: 1px solid #fff; padding: 10px 24px;
   border-radius: 30px; font-size: 1rem; font-weight: 500; letter-spacing: 1px;
 }
-
 .cert-item.image-only:hover .hover-overlay { opacity: 1; }
-.cert-item.image-only:hover img { transform: scale(1.05); /* 이미지 살짝 확대 */ }
-
-/* 기존 .cert-info 스타일 제거됨 */
+.cert-item.image-only:hover img { transform: scale(1.05); }
 
 
-/* --- [신규] 이미지 확대 모달 스타일 --- */
+/* --- [수정] 모달 및 네비게이션 스타일 --- */
 .modal-overlay {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.85); /* 짙은 어두운 배경 */
+  background: rgba(0, 0, 0, 0.85);
   z-index: 2000;
   display: flex; justify-content: center; align-items: center; padding: 20px;
 }
@@ -217,28 +258,62 @@ const closeModal = () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* 모달 컨텐츠에 화살표 공간 확보를 위해 너비를 약간 넓게 잡거나 패딩을 줄 수 있음 */
 }
 
 .modal-image {
   max-width: 100%;
-  max-height: 90vh; /* 화면 높이를 넘지 않도록 */
+  max-height: 85vh; /* 화살표 등과 겹치지 않게 높이 조정 */
   object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  background-color: #fff; /* 투명 이미지 대비 */
+  background-color: #fff;
 }
 
+/* 닫기 버튼 */
 .close-btn {
-  position: absolute; top: -40px; right: 0;
-  background: none; border: none; font-size: 2.5rem; cursor: pointer; color: #fff; z-index: 10;
+  position: absolute; top: -45px; right: 0;
+  background: none; border: none; font-size: 2.5rem; cursor: pointer; color: #fff; z-index: 20;
   transition: color 0.3s;
 }
 .close-btn:hover { color: #e74c3c; }
 
+/* [추가] 네비게이션 버튼 (화살표) 스타일 */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.3); /* 반투명 배경 */
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+  user-select: none; /* 드래그 방지 */
+}
+
+.nav-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.nav-btn.prev {
+  left: -70px; /* 이미지 밖으로 배치 */
+}
+
+.nav-btn.next {
+  right: -70px; /* 이미지 밖으로 배치 */
+}
+
 /* 모달 트랜지션 */
 .modal-enter-active, .modal-leave-active { transition: opacity 0.3s ease; }
 .modal-enter-from, .modal-leave-to { opacity: 0; }
-
 
 /* --- 반응형 --- */
 @media (max-width: 768px) {
@@ -247,16 +322,23 @@ const closeModal = () => {
   .headline { font-size: 1.6rem; margin-bottom: 20px; }
   .mobile-break { display: block; }
 
-  /* 모바일 그리드 */
+  /* 그리드 */
   .cert-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-  .cert-image-box { height: 250px; } /* 모바일에서 높이 줄임 */
+  .cert-image-box { height: 250px; }
 
-  /* 모바일 모달 닫기 버튼 */
-  .close-btn { top: -35px; right: 0; font-size: 2rem; }
+  /* 모바일에서 네비게이션 버튼 위치 조정 */
+  .nav-btn {
+    width: 40px; height: 40px; font-size: 1.5rem;
+    background-color: rgba(0,0,0,0.5); /* 모바일은 좀 더 진하게 */
+  }
+  .nav-btn.prev { left: 10px; } /* 화면 안쪽으로 배치 */
+  .nav-btn.next { right: 10px; } /* 화면 안쪽으로 배치 */
+
+  .close-btn { top: -40px; right: 10px; font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
   .cert-grid { grid-template-columns: 1fr; }
-  .cert-image-box { height: 300px; } /* 1열일 때 높이 약간 확보 */
+  .cert-image-box { height: 300px; }
 }
 </style>
